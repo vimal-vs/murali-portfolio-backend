@@ -1,12 +1,20 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Gallery = sequelize.define('Gallery', {
+    const Event = sequelize.define('Event', {
         title: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        imageUrl: {
+        description: {
             type: DataTypes.STRING,
+            allowNull: false,
+        },
+        date: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        imageUrls: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: false,
         },
         createdAt: {
@@ -20,5 +28,5 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.NOW,
         },
     });
-    return Gallery;
+    return Event;
 };

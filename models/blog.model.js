@@ -9,7 +9,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        author: {
+        date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+        },
+        link: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        imageUrl: {
             type: DataTypes.STRING,
             allowNull: false,
         },

@@ -1,60 +1,70 @@
 const { Testimonial } = require('../models');
 
+// Create a new testimonial
 exports.createTestimonial = async (req, res) => {
     try {
-        const testimonial = await Testimonial.create(req.body);
-        res.status(201).json(testimonial);
+        const { content, name, designation } = req.body;
+        const newTestimonial = await Testimonial.create({ content, name, designation });
+        res.status(201).json(newTestimonial);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Failed to create testimonial', details: error.message });
     }
 };
 
-exports.getTestimonials = async (req, res) => {
+// Retrieve all testimonials
+exports.findAllTestimonials = async (req, res) => {
     try {
         const testimonials = await Testimonial.findAll();
         res.status(200).json(testimonials);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Failed to retrieve testimonials', details: error.message });
     }
 };
 
-exports.getTestimonialById = async (req, res) => {
+// Retrieve a single testimonial by ID
+exports.findTestimonialById = async (req, res) => {
     try {
-        const testimonial = await Testimonial.findByPk(req.params.id);
+        const { id } = req.params;
+        const testimonial = await Testimonial.findByPk(id);
         if (!testimonial) {
             return res.status(404).json({ error: 'Testimonial not found' });
         }
         res.status(200).json(testimonial);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Failed to retrieve testimonial', details: error.message });
     }
 };
 
+// Update a testimonial by ID
 exports.updateTestimonial = async (req, res) => {
     try {
-        const [updated] = await Testimonial.update(req.body, {
-            where: { id: req.params.id }
-        });
-        if (!updated) {
+        const { id } = req.params;
+        const { content, name, designation } = req.body;
+        const testimonial = await Testimonial.findByPk(id);
+        if (!testimonial) {
             return res.status(404).json({ error: 'Testimonial not found' });
         }
-        const updatedTestimonial = await Testimonial.findByPk(req.params.id);
-        res.status(200).json(updatedTestimonial);
+        testimonial.content = content;
+        testimonial.name = name;
+        testimonial.designation = designation;
+        await testimonial.save();
+        res.status(200).json(testimonial);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Failed to update testimonial', details: error.message });
     }
 };
 
+// Delete a testimonial by ID
 exports.deleteTestimonial = async (req, res) => {
     try {
-        const deleted = await Testimonial.destroy({
-            where: { id: req.params.id }
-        });
-        if (!deleted) {
+        const { id } = req.params;
+        const testimonial = await Testimonial.findByPk(id);
+        if (!testimonial) {
             return res.status(404).json({ error: 'Testimonial not found' });
         }
+        await testimonial.destroy();
         res.status(204).json();
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Failed to delete testimonial', details: error.message });
     }
 };

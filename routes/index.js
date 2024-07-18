@@ -2,18 +2,15 @@ const express = require('express');
 const router = express.Router();
 
 const authRoutes = require('./auth.route');
-const blogsRoutes = require('./blog.route');
-const podcastsRoutes = require('./podcast.route');
-const testimonialsRoutes = require('./testimonial.route');
-const galleryRoutes = require('./gallery.route');
-
-const authenticateUser = require('../middleware/auth.middleware');
-// router.use(authenticateUser);
+const blogRoutes = require('./blog.route');
+const podcastRoutes = require('./podcast.route');
+const testimonialRoutes = require('./testimonial.route');
+const eventRoutes = require('./event.route');
 
 router.use('/auth', authRoutes);
-router.use('/blogs', blogsRoutes);
-router.use('/podcasts', podcastsRoutes);
-router.use('/testimonials', testimonialsRoutes);
-router.use('/gallery', galleryRoutes);
+router.use('/blogs', blogRoutes);
+router.use('/podcasts', podcastRoutes);
+router.use('/testimonials', testimonialRoutes);
+router.use('/events', eventRoutes);
 
 module.exports = router;

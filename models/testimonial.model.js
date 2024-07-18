@@ -1,15 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Podcast = sequelize.define('Podcast', {
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        description: {
+    const Testimonial = sequelize.define('Testimonial', {
+        content: {
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        url: {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        designation: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -24,5 +24,5 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.NOW,
         },
     });
-    return Podcast;
+    return Testimonial;
 };
