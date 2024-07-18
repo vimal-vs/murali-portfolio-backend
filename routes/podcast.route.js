@@ -3,7 +3,7 @@ const router = express.Router();
 const podcastController = require('../controllers/podcast.controller');
 const authenticateUser = require('../middleware/auth.middleware');
 
-router.get('/', podcastController.findAllPodcasts);
+router.get('/all', podcastController.findAllPodcasts);
 router.get('/:id', podcastController.findPodcastById);
 router.post('/create', authenticateUser, podcastController.createPodcast);
 router.put('/update/:id', authenticateUser, podcastController.updatePodcast);
