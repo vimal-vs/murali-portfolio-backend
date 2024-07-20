@@ -6,11 +6,13 @@ const blogRoutes = require('./blog.route');
 const podcastRoutes = require('./podcast.route');
 const testimonialRoutes = require('./testimonial.route');
 const eventRoutes = require('./event.route');
+const commonRoutes = require('./common.route');
 
 router.use('/auth', authRoutes);
 router.use('/blogs', blogRoutes);
 router.use('/podcasts', podcastRoutes);
 router.use('/testimonials', testimonialRoutes);
 router.use('/events', eventRoutes);
+router.use('/common', commonRoutes);
 
 module.exports = router;
