@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const models = require('./models');
 const routes = require('./routes');
 const cors = require('cors');
+const path = require('path');
 
 dotenv.config();
 
@@ -12,6 +13,8 @@ app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:3002'],
     credentials: true,
 }));
+
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 // Middleware
 app.use(bodyParser.json());
