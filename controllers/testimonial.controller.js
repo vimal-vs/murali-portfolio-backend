@@ -63,7 +63,7 @@ exports.deleteTestimonial = async (req, res) => {
             return res.status(404).json({ error: 'Testimonial not found' });
         }
         await testimonial.destroy();
-        res.status(204).json();
+        res.status(200).json();
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete testimonial', details: error.message });
     }
