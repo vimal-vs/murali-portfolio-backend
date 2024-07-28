@@ -13,8 +13,13 @@ exports.createTestimonial = async (req, res) => {
 
 // Retrieve all testimonials
 exports.findAllTestimonials = async (req, res) => {
+    const { limit } = req.query;
+    const parsedLimit = limit ? parseInt(limit, 10) : undefined;
     try {
-        const testimonials = await Testimonial.findAll();
+        const testimonials = await Testimonial.findAll({
+            order: [['id', 'ASC']],
+            limit: parsedLimit,
+        });
         res.status(200).json(testimonials);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve testimonials', details: error.message });

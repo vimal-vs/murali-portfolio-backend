@@ -13,8 +13,13 @@ exports.createBlog = async (req, res) => {
 
 // Retrieve all blogs
 exports.findAllBlogs = async (req, res) => {
+    const { limit } = req.query;
+    const parsedLimit = limit ? parseInt(limit, 10) : undefined;
     try {
-        const blogs = await Blog.findAll();
+        const blogs = await Blog.findAll({
+            order: [['id', 'ASC']],
+            limit: parsedLimit,
+        });
         res.status(200).json(blogs);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve blogs', details: error.message });

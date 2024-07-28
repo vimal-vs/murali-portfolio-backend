@@ -13,8 +13,13 @@ exports.createPodcast = async (req, res) => {
 
 // Retrieve all podcasts
 exports.findAllPodcasts = async (req, res) => {
+    const { limit } = req.query;
+    const parsedLimit = limit ? parseInt(limit, 10) : undefined;
     try {
-        const podcasts = await Podcast.findAll();
+        const podcasts = await Podcast.findAll({
+            order: [['id', 'ASC']],
+            limit: parsedLimit,
+        });
         res.status(200).json(podcasts);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve podcasts', details: error.message });

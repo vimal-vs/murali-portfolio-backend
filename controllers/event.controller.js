@@ -13,8 +13,13 @@ exports.createEvent = async (req, res) => {
 
 // Retrieve all events
 exports.findAllEvents = async (req, res) => {
+    const { limit } = req.query;
+    const parsedLimit = limit ? parseInt(limit, 10) : undefined;
     try {
-        const events = await Event.findAll();
+        const events = await Event.findAll({
+            order: [['id', 'ASC']],
+            limit: parsedLimit,
+        });
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve events', details: error.message });
