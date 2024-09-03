@@ -4,7 +4,8 @@ const multer = require('multer');
 const APP_URL = "http://localhost:3001";
 const documentPath = path.join(__dirname, "../uploads");
 
-const allowedExtensions = /\.(jpg|jpeg|png|jfif|pdf|doc|docx|txt|ppt|pptx|3gp|mp4|mkv|flv|avi|xlsx|xls|kml)$/i;
+// const allowedExtensions = /\.(jpg|jpeg|png|jfif|pdf|doc|docx|txt|ppt|pptx|3gp|mp4|mkv|flv|avi|xlsx|xls|kml)$/i;
+const allowedExtensions = /\.(jpg|jpeg|png|3gp|mp4|mkv|flv|avi|heic)$/i;
 
 const documentStorage = multer.diskStorage({
     destination: function (req, file, cb) {
