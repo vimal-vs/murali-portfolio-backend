@@ -64,6 +64,9 @@ exports.updateEvent = async (req, res) => {
 exports.deleteEvent = async (req, res) => {
     try {
         const { id } = req.params;
+        if (id === '0' || id === '1') {
+            return res.status(400).json({ error: 'Deletion not allowed' });
+        }
         const event = await Event.findByPk(id);
         if (!event) {
             return res.status(404).json({ error: 'Event not found' });
